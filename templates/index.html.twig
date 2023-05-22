@@ -14,7 +14,25 @@
 
 {% endblock %}
 {% block body %}
-<img src={{ asset('images/images.collecdvd.jpg')}} alt="image collection dvd" width=100%>
-	<h1>{{ DVDtheque }}</h1>
+	<img src={{ asset('build/images/collecdvd.jpg')}} alt="image collection dvd" width="100%">
+	<h1 class="display-1 text-center">{{ DVDtheque }}</h1>
 
+	<div class="container">
+		<div class="row">
+			<div class="card" style="width: 18rem;">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Film</li>
+					<li class="list-group-item">Ajouter</li>
+					<li class="list-group-item">#</li>
+				</ul>
+			</div>
+			<div class="col">
+				1 of 2
+			</div>
+			<div class="col">
+				2 of 2
+			</div>
+			
+		</div>
+	</div>
 {% endblock %}
