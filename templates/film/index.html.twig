@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+	{{ encore_entry_link_tags('app') }}
+
+{% endblock %}
+{% block title %}DVDtheque
+{% endblock %}
+
+{% block javascripts %}
+
+	{{ encore_entry_script_tags('app') }}
+
+{% endblock %}
+{% block body %}
+	<h1 class="display-1 text-center"></h1>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				{% for film in films%}
+					<div class="card" style="width: 18rem;">
+						<img class="card-img-top" src={{ film.poster }} alt={{ film.title }}>
+						<div class="card-body">
+							<h5 class="card-title">{{ film.title }}</h5>
+							<p class="card-text">{{ film.category }}</p>
+							<a href="{{ path("film_show", { id: film.id }) }}" class="btn btn-primary">Voir la fiche détaillé</a>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

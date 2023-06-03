@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Film{{ film.id }}
+{% endblock %}
+
+
+{% block body %}
+	<div class="media"><img class="align-self-start mr-3" src="{{ asset(film->getPoster()) }}" alt="{{ film.title }} poster">
+		<div class="media-body">
+			<h1 class="mt-0">{{ film.title }}</h1>
+			<p>Synopsis:
+				{{ film.synopsis }}</p>
+			<p>Catégorie :
+				{{ film.category }}</p>
+		</div>
+	</div>
+	<a href="{{ path('film_index') }}">
+		Retour à la liste des films
+	</a>
+
+{% endblock %}
