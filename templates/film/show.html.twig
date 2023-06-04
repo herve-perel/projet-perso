@@ -1,18 +1,21 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Film{{ film.id }}
+{% block title %}{{ film.title }}
 {% endblock %}
 
 
 {% block body %}
-	<div class="media"><img class="align-self-start mr-3" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
+	<div class="container my-3">
+	<div class="media"><img class="align-self-start mr-3" style="width: 15rem; height: 20rem" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
 		<div class="media-body">
 			<h1 class="mt-0">{{ film.title }}</h1>
 			<p>Synopsis:
 				{{ film.synopsis }}</p>
 			<p>Catégorie :
 				{{ film.category }}</p>
+            <p>Année:
+            {{ film.year }}</p>    
 		</div>
 	</div>
 	<a href="{{ path('film_index') }}">
@@ -21,5 +24,5 @@
     	<a href="{{ path('film_edit', { id: film.id }) }}">
 		Modifier film
 	</a>
-
+</div>
 {% endblock %}
