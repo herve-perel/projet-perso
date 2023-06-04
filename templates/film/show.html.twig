@@ -6,7 +6,7 @@
 
 
 {% block body %}
-	<div class="media"><img class="align-self-start mr-3" src="{{ asset(film->getPoster()) }}" alt="{{ film.title }} poster">
+	<div class="media"><img class="align-self-start mr-3" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
 		<div class="media-body">
 			<h1 class="mt-0">{{ film.title }}</h1>
 			<p>Synopsis:
@@ -17,6 +17,9 @@
 	</div>
 	<a href="{{ path('film_index') }}">
 		Retour à la liste des films
+	</a>
+    	<a href="{{ path('film_edit', { id: film.id }) }}">
+		Modifier film
 	</a>
 
 {% endblock %}

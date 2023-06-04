@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class FilmType extends AbstractType
 {
@@ -18,8 +19,11 @@ class FilmType extends AbstractType
             ->add('category', TextType::class)
             ->add('year', NumberType::class)
             ->add('synopsis', TextType::class)
-            ->add('poster', TextType::class)
-        ;
+            ->add('posterFile', VichFileType::class, [
+                'required'      => false,
+                'allow_delete'  => true, // not mandatory, default is true
+                'download_uri' => true, // not mandatory, default is true
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
