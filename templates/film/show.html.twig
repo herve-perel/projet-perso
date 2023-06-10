@@ -15,9 +15,17 @@
 			<p>Catégorie :
 				{{ film.category }}</p>
             <p>Année:
-            {{ film.year }}</p>    
+            {{ film.year }}</p>   
 		</div>
 	</div>
+	<h2>Acteurs :</h2>
+	<ul>
+		{% for actor in film.actors %}
+			<li><a href="{{ path('actor_show', {'id': actor.id})}}">{{ actor.name}}</a></li>
+		{% else %}
+			<li>Aucun acteur pour ce film</li>
+		{% endfor %}
+	</ul>
 	<a href="{{ path('film_index') }}">
 		Retour à la liste des films
 	</a>

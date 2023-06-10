@@ -28,9 +28,9 @@ class FilmController extends AbstractController
         $film = new Film();
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
+
         if ($form->isSubmitted()) {
             $filmRepository->save($film, true);
-
             return $this->redirectToRoute('film_index');
         }
 
@@ -63,7 +63,7 @@ class FilmController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $filmRepository->save($film, true);
 
-            return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('film_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('film/edit.html.twig', [

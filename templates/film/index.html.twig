@@ -16,14 +16,16 @@
 {% block body %}
 	<h1 class="display-1 text-center my-2">Liste des DVD</h1>
 	<div class="container">
-		<div class="row gap-5">
+		<div class="row">
 			{% for film in films%}
-				<div class="card my-3" style="width: 18rem;">
-					<img class="card-img-top p-2" style="height: 15rem" src="{{ vich_uploader_asset(film) }}" alt={{ film.title }}>
-					<div class="card-body">
-						<h3 class="card-title" style="height: 7rem">{{ film.title }}</h3>
-						<p class="card-text">{{ film.category }}</p>
-						<a href="{{ path("film_show", { id: film.id }) }}" class="btn btn-primary">Voir la fiche détaillé</a>
+				<div class=" col-lg-3 col-md-6">
+					<div class="card my-3 ">
+						<img class="card-img-top" style="height: 15rem" src="{{ vich_uploader_asset(film) }}" alt={{ film.title }}>
+						<div class="card-body bg-primary text-secondary rounded-bottom">
+							<h3 class="card-title" style="height: 7rem">{{ film.title }}</h3>
+							<p class="card-text">{{ film.category }}</p>
+							<a href="{{ path("film_show", { id: film.id }) }}" class="btn btn-secondary text-primary">Voir la fiche détaillé</a>
+						</div>
 					</div>
 				</div>
 			{% endfor %}

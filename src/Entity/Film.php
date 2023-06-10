@@ -5,12 +5,12 @@ namespace App\Entity;
 use App\Repository\FilmRepository;
 use DateTime;
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: FilmRepository::class)]
@@ -35,6 +35,7 @@ class Film
     private ?string $synopsis = null;
 
     #[ORM\Column(length: 255)]
+    
     private ?string $poster = null;
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
@@ -49,6 +50,16 @@ class Film
     *@var\DateTimeInterface|null
     */
     private ?DateTimeInterface $updatedAt = null;
+
+    #[ORM\ManyToMany(targetEntity: Actor::class, mappedBy: 'Film')]
+    private Collection $actors;
+
+    public function __construct()
+    {
+        $this->actors = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -129,12 +140,39 @@ class Film
     }
 
     public function setUpdatedAt(?DateTimeInterface $updatedAt)
-{
-    $this->updatedAt = $updatedAt;
-}
+    {
+        $this->updatedAt = $updatedAt;
+    }
 
-public function getUpdatedAt(): ?DateTimeInterface
-{
-    return $this->updatedAt;
-}
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @return Collection<int, Actor>
+     */
+    public function getActors(): Collection
+    {
+        return $this->actors;
+    }
+
+    public function addActor(Actor $actor): self
+    {
+        if (!$this->actors->contains($actor)) {
+            $this->actors->add($actor);
+            $actor->addFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeActor(Actor $actor): self
+    {
+        if ($this->actors->removeElement($actor)) {
+            $actor->removeFilm($this);
+        }
+
+        return $this;
+    }
 }
