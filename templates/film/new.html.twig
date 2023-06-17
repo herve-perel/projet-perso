@@ -14,11 +14,10 @@
 
 {% endblock %}
 {% block body %}
-<h1 class="display-1 text-center my-2">Ajouter un film</h1>
+	<h1 class="display-1 text-center my-2">Ajouter un film</h1>
 	<div class="container">
-		{{ form_start(form) }}
-		{{ form_widget(form) }}
-		<button type="submit" class="btn btn-lg btn-primary">Ajouter un film</button>
-		{{ form_end(form) }}
+		{{ include('film/_form.html.twig') }}
+		   
+
 	</div>
 {% endblock %}

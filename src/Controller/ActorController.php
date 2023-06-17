@@ -19,7 +19,6 @@ class ActorController extends AbstractController
     {
         return $this->render('actor/index.html.twig', [
             'actors' => $actorRepository->findAll(),
-            'films' => $filmRepository->findAll(),
         ]);
     }
 

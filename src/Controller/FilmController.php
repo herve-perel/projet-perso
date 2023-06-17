@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Film;
+use App\Entity\Actor;
 use App\Form\FilmType;
+
+use App\Repository\ActorRepository;
 use App\Repository\FilmRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,13 +26,14 @@ class FilmController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FilmRepository $filmRepository): Response
+    public function new(Request $request, FilmRepository $filmRepository,ActorRepository $actorRepository): Response
     {
-        $film = new Film();
+        $film = new Film(); 
+
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $filmRepository->save($film, true);
             return $this->redirectToRoute('film_index');
         }
