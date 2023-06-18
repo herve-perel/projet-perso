@@ -13,6 +13,8 @@
 			<img class="align-self-start mr-3" style="width: 15rem; height: 20rem" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
 			<div class="media-body">
 				<h1 class="mt-0">{{ film.title }}</h1>
+				<p>Format: 
+				{{ film.support.format }}</p>
 				<p>Synopsis:
 					{{ film.synopsis }}</p>
 				<p>Catégorie :

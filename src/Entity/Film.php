@@ -54,6 +54,9 @@ class Film
     #[ORM\ManyToMany(targetEntity: Actor::class, mappedBy: 'Film')]
     private Collection $actors;
 
+    #[ORM\ManyToOne(inversedBy: 'films', targetEntity: Support::class)]
+    private ?Support $support = null;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -172,6 +175,18 @@ class Film
         if ($this->actors->removeElement($actor)) {
             $actor->removeFilm($this);
         }
+
+        return $this;
+    }
+
+    public function getSupport(): ?Support
+    {
+        return $this->support;
+    }
+
+    public function setSupport(?Support $support): self
+    {
+        $this->support = $support;
 
         return $this;
     }

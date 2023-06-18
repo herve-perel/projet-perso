@@ -19,15 +19,25 @@ class FilmType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class)
-            ->add('category', TextType::class)
-            ->add('year', NumberType::class)
+            ->add('title', TextType::class, [
+                'label' => 'Titre'
+            ])
+            ->add('category', TextType::class, [
+                'label' => 'Categorie'
+            ])
+            ->add('year', NumberType::class, [
+                'label' => 'Année de sortie'
+            ])
             ->add('synopsis', TextType::class)
-            
+            ->add('support', null,  [
+                'choice_label' => 'format',
+                'label' => 'Format'
+            ])
             ->add('posterFile', VichFileType::class, [
                 'required'      => false,
                 'allow_delete'  => true,
                 'download_uri' => true,
+                'label' => 'Ajouter une image'
             ]);
     }
 
@@ -35,7 +45,7 @@ class FilmType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Film::class,
-            
+
         ]);
     }
 }
