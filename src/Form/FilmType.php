@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-
 use App\Entity\Film;
 use App\Entity\Actor;
 use Symfony\Component\Form\AbstractType;
@@ -10,12 +9,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
-
-
-
 
 class FilmType extends AbstractType
 {
@@ -36,13 +31,7 @@ class FilmType extends AbstractType
                 'choice_label' => 'format',
                 'label' => 'Format'
             ])
-            ->add('actors', EntityType::class, [
-                'class' => Actor::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-                'expanded' => true,
-                'by_reference' => false,
-                ])
+            ->add('actors', FilmActorAutocompleteField::class)
             ->add('posterFile', VichFileType::class, [
                 'required'      => false,
                 'allow_delete'  => true,

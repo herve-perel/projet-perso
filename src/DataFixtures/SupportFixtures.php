@@ -18,9 +18,8 @@ class SupportFixtures extends Fixture
         foreach (self::SUPPORTS as $key => $supportFormat) {
             $support = new Support();
             $support->setFormat($supportFormat);
-
-            $manager->persist($support);
             $this->addReference('support_' . $key, $support);
+            $manager->persist($support);
         }
         $manager->flush();
     }

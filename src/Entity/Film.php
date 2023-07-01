@@ -35,7 +35,7 @@ class Film
     private ?string $synopsis = null;
 
     #[ORM\Column(length: 255)]
-    
+
     private ?string $poster = null;
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]

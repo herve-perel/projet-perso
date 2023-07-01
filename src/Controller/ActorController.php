@@ -41,7 +41,7 @@ class ActorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show')]
     public function show(Actor $actor): Response
     {
         return $this->render('actor/show.html.twig', [
