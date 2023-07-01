@@ -2,48 +2,40 @@
 
 namespace App\Form;
 
-use App\Entity\Film;
+use App\Entity\Director;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class FilmType extends AbstractType
+
+class DirectorType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title', TextType::class, [
-                'label' => 'Titre'
+            ->add('name', TextType::class, [
+                'label' => 'Nom'
             ])
-            ->add('category', TextType::class, [
-                'label' => 'Categorie'
-            ])
-            ->add('year', NumberType::class, [
-                'label' => 'Année de sortie'
-            ])
-            ->add('synopsis', TextType::class)
-            ->add('support', null,  [
-                'choice_label' => 'format',
-                'label' => 'Format'
-            ])
-            ->add('actors', FilmActorAutocompleteField::class)
-            ->add('directors', FilmDirectorAutocompleteField::class)
-            ->add('posterFile', VichFileType::class, [
+            ->add('directorFile', VichFileType::class, [
                 'required'      => false,
                 'allow_delete'  => true,
                 'download_uri' => true,
                 'label' => 'Ajouter une image'
+            ])
+            ->add('age', NumberType::class)
+            ->add('bio', TextareaType::class, [
+                'label' => 'Biographie'
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Film::class,
-
+            'data_class' => Director::class,
         ]);
     }
 }

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Réalisateur
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-4">Liste des réalisateurs
+	</h1>
+	<ul>
+		<div class="container">
+			<a class="btn btn-primary" href="{{ path('director_new') }}">Ajouter un réalisateur</a>
+		</div>
+		{% for director in directors %}
+			<div class="container">
+				<div class="list-group text-center my-1">
+					<a href="{{ path("director_show", { id: director.id }) }}" class="list-group-item list-group-item-action active">
+						{{ director.name }}
+					</a>
+				</div>
+			</div>
+		{% else %}
+			Aucun réalisateur trouvée.
+		{% endfor %}
+	</ul>
+{% endblock %}

@@ -61,7 +61,7 @@ class ActorController extends AbstractController
             return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('actor/edit.html.twig', [
+        return $this->render('actor/edit.html.twig', [
             'actor' => $actor,
             'form' => $form,
         ]);
