@@ -9,3 +9,7 @@ vich_uploader:
             uri_prefix: /uploads/images/posters
             upload_destination: '%upload_directory%'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        actor_file:
+            uri_prefix: /uploads/images/actor
+            upload_destination: '%upload_directory%'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

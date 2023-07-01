@@ -4,14 +4,19 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Tous les acteurs:
+	<h1 class="text-center my-4">Liste des acteurs
 	</h1>
 	<ul>
+		<div class="container">
+			<a class="btn btn-primary" href="{{ path('actor_new') }}">Ajouter un acteur</a>
+		</div>
 		{% for actor in actors %}
-			<div>
-				<li>{{ actor.name }}
-				</li>
-				<a href="{{ path("actor_show", { id: actor.id }) }}">Voir la fiche</a>
+			<div class="container">
+				<div class="list-group text-center my-1">
+					<a href="{{ path("actor_show", { id: actor.id }) }}" class="list-group-item list-group-item-action active">
+						{{ actor.name }}
+					</a>
+				</div>
 			</div>
 		{% else %}
 			Aucun acteur trouvée.
