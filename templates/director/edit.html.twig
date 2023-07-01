@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier réalisateur{% endblock %}
+
+{% block body %}
+    <h1>Modifier réalisateur</h1>
+
+    {{ include('director/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+    <a href="{{ path('director_index') }}">Retour à la liste des réalisateur</a>
+
+    {{ include('director/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter réalisateur
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center my-4">Ajouter un réalisateur</h1>
+	<div class="container">
+		{{ include('director/_form.html.twig') }}
+	</div>
+	<a class="btn btn-outline btn-secondary" href="{{ path('director_index') }}">Retour à la liste des réalisateurs</a>
+{% endblock %}

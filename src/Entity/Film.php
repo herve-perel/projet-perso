@@ -57,6 +57,9 @@ class Film
     #[ORM\ManyToOne(inversedBy: 'films', targetEntity: Support::class)]
     private ?Support $support = null;
 
+    #[ORM\ManyToOne(inversedBy: 'films')]
+    private ?Director $director = null;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -187,6 +190,18 @@ class Film
     public function setSupport(?Support $support): self
     {
         $this->support = $support;
+
+        return $this;
+    }
+
+    public function getDirectors(): ?Director
+    {
+        return $this->director;
+    }
+
+    public function setDirector(?Director $director): static
+    {
+        $this->director = $director;
 
         return $this;
     }
