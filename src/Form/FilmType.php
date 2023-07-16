@@ -30,7 +30,7 @@ class FilmType extends AbstractType
                 'label' => 'Format'
             ])
             ->add('actors', FilmActorAutocompleteField::class)
-            ->add('directors', FilmDirectorAutocompleteField::class)
+            ->add('director', FilmDirectorAutocompleteField::class)
             ->add('posterFile', VichFileType::class, [
                 'required'      => false,
                 'allow_delete'  => true,

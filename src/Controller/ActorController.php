@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Form\ActorType;
 use App\Repository\ActorRepository;
-use App\Repository\FilmRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ActorController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(ActorRepository $actorRepository, FilmRepository $filmRepository): Response
+    public function index(ActorRepository $actorRepository): Response
     {
         return $this->render('actor/index.html.twig', [
             'actors' => $actorRepository->findAll(),
@@ -32,7 +31,7 @@ class ActorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $actorRepository->save($actor, true);
 
-            return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('actor/new.html.twig', [
@@ -41,7 +40,7 @@ class ActorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show')]
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Actor $actor): Response
     {
         return $this->render('actor/show.html.twig', [
@@ -58,7 +57,7 @@ class ActorController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $actorRepository->save($actor, true);
 
-            return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('actor/edit.html.twig', [
@@ -74,6 +73,6 @@ class ActorController extends AbstractController
             $actorRepository->remove($actor, true);
         }
 
-        return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
     }
 }

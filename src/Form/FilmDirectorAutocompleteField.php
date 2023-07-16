@@ -19,11 +19,10 @@ class FilmDirectorAutocompleteField extends AbstractType
             'label' => 'Réalisateur',
             'placeholder' => 'Choississez un réalisateur',
             'choice_label' => 'name',
-
+            'by_reference' => false,
             'query_builder' => function (DirectorRepository $directorRepository) {
                 return $directorRepository->createQueryBuilder('director');
             },
-            // 'security' => 'ROLE_SOMETHING',
         ]);
     }
 

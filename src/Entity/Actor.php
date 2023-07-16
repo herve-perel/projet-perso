@@ -13,8 +13,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\DBAL\Types\Types;
 use Symfony\Component\HttpFoundation\File\File;
 
-
-
 #[ORM\Entity(repositoryClass: ActorRepository::class)]
 #[Vich\Uploadable]
 class Actor
@@ -28,12 +26,13 @@ class Actor
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'actors')]
+
     private Collection $Film;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
-    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    #[Vich\UploadableField(mapping: 'actor_file', fileNameProperty: 'poster')]
     #[Assert\File(
         maxSize: '1M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],

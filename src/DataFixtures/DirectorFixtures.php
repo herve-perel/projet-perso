@@ -2,25 +2,28 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Actor;
+use App\Entity\Director;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class ActorFixtures extends Fixture implements DependentFixtureInterface
+class DirectorFixtures extends Fixture implements DependentFixtureInterface
 {
-    public const ACTOR_NUMBERS = 25;
+    public const DIRECTOR_NUMBERS = 25;
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
 
-        for ($i = 0; $i < self::ACTOR_NUMBERS; $i++) {
-            $actor = new Actor();
-            $actor->setName($faker->firstName());
-            $actor->addFilm($this->getReference('film_' . $faker->numberBetween(0, FilmFixtures::FILM_NUMBERS - 1)));
-            $manager->persist($actor);
+        for ($i = 0; $i < self::DIRECTOR_NUMBERS; $i++) {
+            $director = new Director();
+            $director->setName($faker->firstName());
+            $director->addFilm($this->getReference('film_' . $faker->numberBetween(0, FilmFixtures::FILM_NUMBERS - 1)));
+
+            $manager->persist($director);
         }
+
         $manager->flush();
     }
 

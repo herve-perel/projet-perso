@@ -51,7 +51,7 @@ class DirectorController extends AbstractController
     #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Director $director, DirectorRepository $directorRepository): Response
     {
-        $form = $this->createForm(Director1Type::class, $director);
+        $form = $this->createForm(DirectorType::class, $director);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
