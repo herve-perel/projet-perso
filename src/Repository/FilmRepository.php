@@ -2,6 +2,8 @@
 
 namespace App\Repository;
 
+use App\Entity\Actor;
+use App\Entity\Director;
 use App\Entity\Film;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,28 +41,20 @@ class FilmRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Film[] Returns an array of Film objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Film
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findFilm(?string $search): array
+    {
+        $queryBuilder = $this->createQueryBuilder('f')
+            ->leftJoin('f.actors', 'a')
+            ->leftJoin('f.director', 'd') // Jointure avec la table des acteurs
+            ->where('f.title LIKE :search')
+            ->orWhere('a.name LIKE :actor')
+            ->orWhere('d.name LIKE :director')
+            ->setParameter('search', '%' . $search . '%')
+            ->setParameter('actor', '%' . $search . '%')
+            ->setParameter('director', '%' . $search . '%')
+            ->orderBy('f.title', 'ASC')
+            ->getQuery();
+    
+        return $queryBuilder->getResult();
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Film;
 use App\Form\FilmType;
+use App\Form\SearchFilmType;
 use App\Repository\FilmRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,12 +15,21 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('/film', name: 'film_')]
 class FilmController extends AbstractController
 {
-    #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(FilmRepository $filmRepository): Response
+    #[Route('/', name: 'index')]
+    public function index(Request $request, FilmRepository $filmRepository): Response
     {
-        $films = $filmRepository->findAll();
+        $form = $this->createForm(SearchFilmType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            $films = $filmRepository->findFilm($data['search']);
+        } else {
+            $films = $filmRepository->findAll();
+        }
         return $this->render('film/index.html.twig', [
             'films' => $films,
+            'form' => $form
         ]);
     }
 

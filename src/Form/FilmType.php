@@ -16,7 +16,7 @@ class FilmType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Titre'
+                'label' => 'Titre',
             ])
             ->add('category', TextType::class, [
                 'label' => 'Categorie'
@@ -27,7 +27,9 @@ class FilmType extends AbstractType
             ->add('synopsis', TextType::class)
             ->add('support', null,  [
                 'choice_label' => 'format',
-                'label' => 'Format'
+                'label' => 'Format',
+                'placeholder' => 'Choississez un format'
+
             ])
             ->add('actors', FilmActorAutocompleteField::class)
             ->add('director', FilmDirectorAutocompleteField::class)
