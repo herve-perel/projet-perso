@@ -6,9 +6,16 @@ use Faker\Factory;
 use App\Entity\Film;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
-class FilmFixtures extends Fixture 
+class FilmFixtures extends Fixture
 {
+    protected $slugger;
+
+    public function __construct(SluggerInterface $slugger)
+    {
+        $this->slugger = $slugger;
+    }
     public const FILM_NUMBERS = 20;
     public function load(ObjectManager $manager): void
     {
@@ -23,9 +30,8 @@ class FilmFixtures extends Fixture
             $film->setSynopsis($faker->paragraphs(3, true));
             $film->setCategory($faker->word());
             $film->setPoster($faker->numberBetween(1, 10));
-
+            $film->setSlug(strtolower($this->slugger->slug($film->getTitle())));
             $this->addReference('film_' . $i, $film);
-
 
             $manager->persist($film);
         }

@@ -3,15 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Film;
-use App\Entity\Actor;
 use App\Form\FilmType;
-
-use App\Repository\ActorRepository;
 use App\Repository\FilmRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/film', name: 'film_')]
 class FilmController extends AbstractController
@@ -26,14 +24,15 @@ class FilmController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FilmRepository $filmRepository,ActorRepository $actorRepository): Response
+    public function new(Request $request, FilmRepository $filmRepository, SluggerInterface $slugger): Response
     {
-        $film = new Film(); 
-
+        $film = new Film();
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($film->getTitle());
+            $film->setSlug($slug);
             $filmRepository->save($film, true);
             return $this->redirectToRoute('film_index');
         }
@@ -44,28 +43,23 @@ class FilmController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', methods: ['GET'], name: 'show')]
-    public function show(int $id, FilmRepository $filmRepository): Response
+    #[Route('/{slug}', methods: ['GET'], name: 'show')]
+    public function show(Film $film): Response
     {
-        $film = $filmRepository->findOneBy(['id' => $id]);
-        if (!$film) {
-            throw $this->createNotFoundException(
-                'No film with id : ' . $id . ' found in film\'s table.'
-            );
-        }
-
         return $this->render('film/show.html.twig', [
-            'film' => $film,
+            'film' => $film
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Film $film, FilmRepository $filmRepository): Response
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Film $film, FilmRepository $filmRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(FilmType::class, $film);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($film->getTitle());
+            $film->setSlug($slug);
             $filmRepository->save($film, true);
 
             return $this->redirectToRoute('film_index', [], Response::HTTP_SEE_OTHER);

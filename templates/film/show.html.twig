@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}
-	{{ film.title }}
+{% block title %}{{ film.title }}
 {% endblock %}
 
 
@@ -27,7 +26,7 @@
 		<ul>
 			{% for actor in film.actors %}
 				<li>
-					<a href="{{ path('actor_show', {'id': actor.id})}}">{{ actor.name}}</a>
+					<a href="{{ path('actor_show', {'slug': actor.slug})}}">{{ actor.name}}</a>
 				</li>
 			{% else %}
 				<li>Aucun acteur pour ce film</li>
@@ -36,8 +35,8 @@
 		<a class="btn btn-secondary mx-3" href="{{ path('film_index') }}">
 			Retour à la liste des films
 		</a>
-		<a class="btn btn-primary" href="{{ path('film_edit', { id: film.id }) }}">
-			Modifier film
+		<a class="btn btn-primary" href="{{ path('film_edit', { slug: film.slug }) }}">
+			Modifier le film
 		</a>
 	</div>
 {% endblock %}

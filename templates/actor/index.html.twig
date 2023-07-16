@@ -13,7 +13,7 @@
 		{% for actor in actors %}
 			<div class="container">
 				<div class="list-group text-center my-1">
-					<a href="{{ path("actor_show", { id: actor.id }) }}" class="list-group-item list-group-item-action active">
+					<a href="{{ path("actor_show", { slug: actor.slug }) }}" class="list-group-item list-group-item-action active">
 						{{ actor.name }}
 					</a>
 				</div>

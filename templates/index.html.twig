@@ -26,7 +26,7 @@
 						<div class="card-body bg-primary text-secondary rounded-bottom">
 							<h3 class="card-title" style="height: 7rem">{{ film.title }}</h3>
 							<p class="card-text">{{ film.category }}</p>
-							<a href="{{ path("film_show", { id: film.id }) }}" class="btn btn-secondary text-primary">Voir la fiche détaillé</a>
+							<a href="{{ path("film_show", { slug: film.slug }) }}" class="btn btn-secondary text-primary">Voir la fiche détaillé</a>
 						</div>
 					</div>
 				</div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Réalisateur
+{% block title %}{{ director.name }}
 {% endblock %}
 
 {% block body %}
@@ -33,7 +33,7 @@
 		{% endfor %}
 	</div>
 	<div class="container">
-		<a class="btn btn-outline btn-primary m-2" href="{{ path('director_edit', {'id': director.id}) }}">Modifier</a>
+		<a class="btn btn-outline btn-primary m-2" href="{{ path('director_edit', {'slug': director.slug}) }}">Modifier</a>
 		{{ include('director/_delete_form.html.twig') }}
 	</div>
 	<a class="btn btn-outline btn-secondary m-2" href="{{ path('director_index') }}">Retour à la liste des réalisateurs</a>

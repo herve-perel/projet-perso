@@ -59,6 +59,9 @@ class Film
     #[ORM\ManyToOne(inversedBy: 'films', targetEntity: Director::class)]
     private ?Director $director = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -201,6 +204,18 @@ class Film
     public function setDirector(?Director $director): static
     {
         $this->director = $director;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
