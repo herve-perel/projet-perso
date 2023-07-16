@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/director', name: 'director_')]
 class DirectorController extends AbstractController
@@ -22,13 +23,15 @@ class DirectorController extends AbstractController
     }
 
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
-    public function new(Request $request, DirectorRepository $directorRepository): Response
+    public function new(Request $request, DirectorRepository $directorRepository, SluggerInterface $slugger): Response
     {
         $director = new Director();
         $form = $this->createForm(DirectorType::class, $director);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($director->getName());
+            $director->setSlug($slug);
             $directorRepository->save($director, true);
 
             return $this->redirectToRoute('director_index', [], Response::HTTP_SEE_OTHER);
@@ -40,7 +43,7 @@ class DirectorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'show', methods: ['GET'])]
     public function show(Director $director): Response
     {
         return $this->render('director/show.html.twig', [
@@ -48,13 +51,15 @@ class DirectorController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Director $director, DirectorRepository $directorRepository): Response
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Director $director, DirectorRepository $directorRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(DirectorType::class, $director);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug($director->getName());
+            $director->setSlug($slug);
             $directorRepository->save($director, true);
 
             return $this->redirectToRoute('director_index', [], Response::HTTP_SEE_OTHER);
