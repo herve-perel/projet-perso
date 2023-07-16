@@ -25,19 +25,19 @@ class Director
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $age = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
-    #[ORM\OneToMany(mappedBy: 'director', targetEntity: Film::class)]
+    #[ORM\OneToMany(mappedBy: 'director', targetEntity: Film::class, orphanRemoval: true)]
     private Collection $films;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $poster = null;
 
-    #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
+    #[Vich\UploadableField(mapping: 'director_file', fileNameProperty: 'poster')]
     #[Assert\File(
         maxSize: '1M',
         mimeTypes: ['image/jpeg', 'image/png', 'image/webp'],
@@ -115,7 +115,7 @@ class Director
     {
         if ($this->films->removeElement($film)) {
             // set the owning side to null (unless already changed)
-            if ($film->getDirectors() === $this) {
+            if ($film->getDirector() === $this) {
                 $film->setDirector(null);
             }
         }
@@ -127,7 +127,7 @@ class Director
     {
         return $this->directorFile;
     }
-    
+
     public function setDirectorFile(File $image = null): Director
     {
         $this->directorFile = $image;
@@ -149,5 +149,10 @@ class Director
         $this->poster = $poster;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

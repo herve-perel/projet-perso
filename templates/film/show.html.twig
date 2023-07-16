@@ -7,9 +7,9 @@
 
 
 {% block body %}
-	<div class="container my-3">
+	<div class="container">
 		<div class="media">
-			<img class="align-self-start mr-3" style="width: 15rem; height: 20rem" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
+			<img class="align-self-start mr-3" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
 			<div class="media-body">
 				<h1 class="mt-0">{{ film.title }}</h1>
 				
@@ -19,6 +19,8 @@
 					{{ film.category }}</p>
 				<p>Année:
 					{{ film.year }}</p>
+					<p>Réalisateur: 
+					<p>{{ film.director.name }}</p>
 			</div>
 		</div>
 		<h2>Acteurs :</h2>

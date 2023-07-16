@@ -14,14 +14,15 @@
 
 {% endblock %}
 {% block body %}
-	<img src={{ asset('build/images/ecran-halloween.jpg')}} alt="image collection dvd" style="width: 100%; height: 55rem;">
+	<img class="img_homepage" src={{ asset('build/images/ecran-halloween.jpg')}} alt="image collection dvd" style="width: 100%; height: 55rem;" >
+
 	<h1 class="display-1 text-center">Dernier ajout</h1>
 	<div class="container">
 		<div class="row">
 			{% for film in films%}
 				<div class=" col-lg-3 col-md-6">
 					<div class="card my-3 ">
-						<img class="card-img-top" style="height: 15rem" src="{{ vich_uploader_asset(film) }}" alt={{ film.title }}>
+						<img class="card-img-top"  src="{{ vich_uploader_asset(film) }}" alt={{ film.title }}>
 						<div class="card-body bg-primary text-secondary rounded-bottom">
 							<h3 class="card-title" style="height: 7rem">{{ film.title }}</h3>
 							<p class="card-text">{{ film.category }}</p>

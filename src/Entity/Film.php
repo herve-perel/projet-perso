@@ -35,7 +35,6 @@ class Film
     private ?string $synopsis = null;
 
     #[ORM\Column(length: 255)]
-
     private ?string $poster = null;
 
     #[Vich\UploadableField(mapping: 'poster_file', fileNameProperty: 'poster')]
@@ -57,7 +56,7 @@ class Film
     #[ORM\ManyToOne(inversedBy: 'films', targetEntity: Support::class)]
     private ?Support $support = null;
 
-    #[ORM\ManyToOne(inversedBy: 'films')]
+    #[ORM\ManyToOne(inversedBy: 'films', targetEntity: Director::class)]
     private ?Director $director = null;
 
     public function __construct()
@@ -194,7 +193,7 @@ class Film
         return $this;
     }
 
-    public function getDirectors(): ?Director
+    public function getDirector(): ?Director
     {
         return $this->director;
     }
