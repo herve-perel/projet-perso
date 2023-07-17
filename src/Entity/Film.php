@@ -201,7 +201,7 @@ class Film
         return $this->director;
     }
 
-    public function setDirector(?Director $director): static
+    public function setDirector(?Director $director): self
     {
         $this->director = $director;
 

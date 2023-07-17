@@ -6,6 +6,7 @@ use App\Entity\Film;
 use App\Form\FilmType;
 use App\Form\SearchFilmType;
 use App\Repository\FilmRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +17,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class FilmController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(Request $request, FilmRepository $filmRepository): Response
+    public function index(Request $request, FilmRepository $filmRepository, PaginatorInterface $paginatorInterface): Response
     {
         $form = $this->createForm(SearchFilmType::class);
         $form->handleRequest($request);
@@ -27,8 +28,15 @@ class FilmController extends AbstractController
         } else {
             $films = $filmRepository->findAll();
         }
+
+        $pagination = $paginatorInterface->paginate(
+            $filmRepository->paginationQuery(),
+            $request->query->get('page', 1),
+            12
+        );
+
         return $this->render('film/index.html.twig', [
-            'films' => $films,
+            'pagination' => $pagination,
             'form' => $form
         ]);
     }

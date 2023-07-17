@@ -45,7 +45,7 @@ class FilmRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('f')
             ->leftJoin('f.actors', 'a')
-            ->leftJoin('f.director', 'd') // Jointure avec la table des acteurs
+            ->leftJoin('f.director', 'd')
             ->where('f.title LIKE :search')
             ->orWhere('a.name LIKE :actor')
             ->orWhere('d.name LIKE :director')
@@ -54,7 +54,14 @@ class FilmRepository extends ServiceEntityRepository
             ->setParameter('director', '%' . $search . '%')
             ->orderBy('f.title', 'ASC')
             ->getQuery();
-    
+
         return $queryBuilder->getResult();
+    }
+
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.id', 'ASC')
+            ->getQuery();
     }
 }

@@ -20,7 +20,7 @@ class FilmActorAutocompleteField extends AbstractType
             'placeholder' => 'Choississez un acteur',
             'choice_label' => 'name',
             'multiple' => true,
-            'by_reference' => false,
+            // 'by_reference' => false,
             'query_builder' => function (ActorRepository $actorRepository) {
                 return $actorRepository->createQueryBuilder('actor');
             },

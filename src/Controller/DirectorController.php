@@ -78,6 +78,6 @@ class DirectorController extends AbstractController
             $directorRepository->remove($director, true);
         }
 
-        return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('director_index', [], Response::HTTP_SEE_OTHER);
     }
 }
