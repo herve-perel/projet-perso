@@ -1,7 +1,8 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}{{ film.title }}
+{% block title %}
+	{{ film.title }}
 {% endblock %}
 
 
@@ -11,15 +12,15 @@
 			<img class="align-self-start mr-3" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
 			<div class="media-body">
 				<h1 class="mt-0">{{ film.title }}</h1>
-				
+
 				<p>Synopsis:
 					{{ film.synopsis }}</p>
 				<p>Catégorie :
 					{{ film.category }}</p>
 				<p>Année:
 					{{ film.year }}</p>
-					<p>Réalisateur: 
-					<p>{{ film.director.name }}</p>
+				<p>Réalisateur:</p>
+				<p>{{ film.director.name }}</p>
 			</div>
 		</div>
 		<h2>Acteurs :</h2>
@@ -38,5 +39,6 @@
 		<a class="btn btn-primary" href="{{ path('film_edit', { slug: film.slug }) }}">
 			Modifier le film
 		</a>
+		{{ include('film/_delete_form.html.twig')}}
 	</div>
 {% endblock %}

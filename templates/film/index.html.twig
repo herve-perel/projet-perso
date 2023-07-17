@@ -22,7 +22,7 @@
 		<button class="btn btn-primary my-2 my-sm-0 text-secondary">Search</button>
 		{{ form_end(form) }}
 		<div class="row">
-			{% for film in films%}
+			{% for film in pagination %}
 				<div class=" col-lg-3 col-md-6">
 					<div class="card my-3 ">
 						<img class="card-img-top" style="height: 15rem" src="{{ vich_uploader_asset(film) }}" alt={{ film.title }}>
@@ -33,8 +33,8 @@
 						</div>
 					</div>
 				</div>
-
 			{% endfor %}
+			{{ knp_pagination_render(pagination) }}
 		</div>
 	</div>
 

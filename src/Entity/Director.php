@@ -31,7 +31,7 @@ class Director
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $bio = null;
 
-    #[ORM\OneToMany(mappedBy: 'director', targetEntity: Film::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'director', targetEntity: Film::class)]
     private Collection $films;
 
     #[ORM\Column(length: 255, nullable: true)]
