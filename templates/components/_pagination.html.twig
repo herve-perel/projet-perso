@@ -1,0 +1,40 @@
+{# tailwindcss Sliding pagination control implementation #}
+{% if pageCount > 1 %}
+    <div class="inline-block">
+        <div class="flex items-baseline flex-row  bg-secondary d-flex justify-content-center mb-3 rounded-sm w-auto">
+        {% if first is defined and current != first %}
+            <span class="bg-white text-secondary-600 px-3 py-2 text-lg border-r border-gray-400 font-bold">
+                <a href="{{ path(route, query|merge({(pageParameterName): first})) }}">&lt;&lt;</a>
+            </span>
+        {% endif %}
+
+        {% if previous is defined %}
+            <span class="bg-white text-primary-600 px-3 text-lg py-2 border-r border-gray-400">
+                <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">{% include 'icon/arrow-left-circle-fill.svg' %}</a>
+            </span>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <span class="bg-tertiary text-primary-600 px-3 py-2 text-lg border-r  border-gray-400">
+                    <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+                </span>
+            {% else %}
+                <span class="bg-blue-600 text-primary px-3 py-2 text-lg font-bold">{{ page }}</span>
+            {% endif %}
+        {% endfor %}
+
+        {% if next is defined %}
+            <span class="bg-white text-primary-600 px-3 py-2 text-lg border-r border-gray-400">
+                <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{% include 'icon/arrow-right-circle-fill.svg' %}</a>
+            </span>
+        {% endif %}
+
+        {% if last is defined and current != last %}
+            <span class="bg-white text-primary-600 px-3 py-2 text-lg border-gray-400 font-bold">
+                <a href="{{ path(route, query|merge({(pageParameterName): last})) }}">&gt;&gt;</a>
+            </span>
+        {% endif %}
+        </div>
+    </div>
+{% endif %}

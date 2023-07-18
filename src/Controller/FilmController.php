@@ -19,6 +19,8 @@ class FilmController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(Request $request, FilmRepository $filmRepository, PaginatorInterface $paginatorInterface): Response
     {
+
+
         $form = $this->createForm(SearchFilmType::class);
         $form->handleRequest($request);
 
@@ -37,6 +39,7 @@ class FilmController extends AbstractController
 
         return $this->render('film/index.html.twig', [
             'pagination' => $pagination,
+            'films' => $films,
             'form' => $form
         ]);
     }
