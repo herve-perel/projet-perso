@@ -17,7 +17,7 @@ class DirectorController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(DirectorRepository $directorRepository): Response
     {
-        
+
         return $this->render('director/index.html.twig', [
             'directors' => $directorRepository->findAll(),
         ]);
@@ -34,6 +34,8 @@ class DirectorController extends AbstractController
             $slug = $slugger->slug($director->getName());
             $director->setSlug($slug);
             $directorRepository->save($director, true);
+            $this->addFlash('success', 'Le nouvel réalisateur a bien été créée.');
+
 
             return $this->redirectToRoute('director_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -62,6 +64,8 @@ class DirectorController extends AbstractController
             $slug = $slugger->slug($director->getName());
             $director->setSlug($slug);
             $directorRepository->save($director, true);
+            $this->addFlash('success', 'Le réalisateur a bien été modifiée.');
+
 
             return $this->redirectToRoute('director_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -75,8 +79,9 @@ class DirectorController extends AbstractController
     #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Director $director, DirectorRepository $directorRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$director->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $director->getId(), $request->request->get('_token'))) {
             $directorRepository->remove($director, true);
+            $this->addFlash('success', 'Le réalisateur a bien été supprimée.');
         }
 
         return $this->redirectToRoute('director_index', [], Response::HTTP_SEE_OTHER);

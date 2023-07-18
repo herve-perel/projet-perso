@@ -61,7 +61,7 @@ class FilmRepository extends ServiceEntityRepository
     public function paginationQuery()
     {
         return $this->createQueryBuilder('f')
-            ->orderBy('f.id', 'ASC')
+            ->orderBy('f.title', 'ASC')
             ->getQuery();
     }
 }

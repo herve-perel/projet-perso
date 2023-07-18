@@ -34,6 +34,8 @@ class ActorController extends AbstractController
             $slug = $slugger->slug($actor->getName());
             $actor->setSlug($slug);
             $actorRepository->save($actor, true);
+            $this->addFlash('success', 'Le nouvel acteur film a bien été créée.');
+
 
             return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -41,7 +43,7 @@ class ActorController extends AbstractController
         return $this->render('actor/new.html.twig', [
             'slug' => $actor,
             'form' => $form,
-            
+
         ]);
     }
 
@@ -64,6 +66,8 @@ class ActorController extends AbstractController
             $slug = $slugger->slug($actor->getName());
             $actor->setSlug($slug);
             $actorRepository->save($actor, true);
+            $this->addFlash('success', 'L\'acteur a bien été modifiée.');
+
 
             return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -79,6 +83,7 @@ class ActorController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $actor->getId(), $request->request->get('_token'))) {
             $actorRepository->remove($actor, true);
+            $this->addFlash('success', 'L\'acteur a bien été supprimée.');
         }
 
         return $this->redirectToRoute('actor_index', [], Response::HTTP_SEE_OTHER);
