@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ director.name }}
+{% block title %}
+	{{ director.name }}
 {% endblock %}
 
 {% block body %}
@@ -28,13 +29,15 @@
 			<ul>
 				<li>{{ film.title }}</li>
 			</ul>
-			{% else %}
+		{% else %}
 			Aucun film trouvé.
 		{% endfor %}
 	</div>
-	<div class="container">
-		<a class="btn btn-outline btn-primary m-2" href="{{ path('director_edit', {'slug': director.slug}) }}">{% include 'icon/pencil.svg' %}Modifier</a>
-		{{ include('director/_delete_form.html.twig') }}
-	</div>
+	{% if app.user %}
+		<div class="container">
+			<a class="btn btn-outline btn-primary m-2" href="{{ path('director_edit', {'slug': director.slug}) }}">{% include 'icon/pencil.svg' %}Modifier</a>
+			{{ include('director/_delete_form.html.twig') }}
+		</div>
+	{% endif %}
 	<a class="btn btn-outline btn-secondary m-2" href="{{ path('director_index') }}">Retour à la liste des réalisateurs</a>
 {% endblock %}

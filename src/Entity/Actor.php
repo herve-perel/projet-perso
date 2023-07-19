@@ -23,6 +23,9 @@ class Actor
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 255)]
     private ?string $name = null;
 
     #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'actors')]

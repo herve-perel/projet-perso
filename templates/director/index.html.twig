@@ -8,7 +8,9 @@
 	</h1>
 	<ul>
 		<div class="container">
+		{% if app.user %}
 			<a class="btn btn-primary" href="{{ path('director_new') }}">Ajouter un réalisateur</a>
+			{% endif %}
 		</div>
 		{% for director in directors %}
 			<div class="container">

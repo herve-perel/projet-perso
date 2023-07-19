@@ -7,9 +7,11 @@
 	<h1 class="text-center my-4">Liste des acteurs
 	</h1>
 	<ul>
+	{% if app.user %}
 		<div class="container">
 			<a class="btn btn-primary" href="{{ path('actor_new') }}">Ajouter un acteur</a>
 		</div>
+		{% endif %}
 		{% for actor in actors %}
 			<div class="container">
 				<div class="list-group text-center my-1">

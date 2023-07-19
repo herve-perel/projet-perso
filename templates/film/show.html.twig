@@ -12,8 +12,8 @@
 		<div class="global-card bg-dark rounded">
 			<div class="media">
 				<div class="card d-flex flex-row bg-secondary text-secondary bg-dark">
-				<div class="bg-secondary">
-					<img class="img-film" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
+					<div class="bg-secondary">
+						<img class="img-film" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }} poster">
 					</div>
 					<div class="media-body">
 						<div class="d-flex flex-row align-items-center  p-3">
@@ -48,9 +48,11 @@
 				</a>
 			</div>
 		</div>
-		<a class="btn btn-primary mt-3" href="{{ path('film_edit', { slug: film.slug }) }}">
-			Modifier le film
-		</a>
-		{{ include('film/_delete_form.html.twig')}}
+		{% if app.user %}
+			<a class="btn btn-primary mt-3" href="{{ path('film_edit', { slug: film.slug }) }}">
+				Modifier le film
+			</a>
+			{{ include('film/_delete_form.html.twig')}}
+		{% endif %}
 	</div>
 {% endblock %}
