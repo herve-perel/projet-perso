@@ -4,26 +4,27 @@
 {% block body %}
 	<h1 class="display-1 text-center my-2">Liste des DVD</h1>
 	<div class="container">
-	{% include 'components/_searchBar.html.twig' %}
-		<div class="row">
-			{% for film in pagination %}
-				{% if  film in films %}
-					<div class="col-lg-3 col-md-6">
-						<div class="card my-3">
-							<img class="card-img-top" style="height: 15rem" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }}">
-							<div class="card-body bg-primary text-secondary rounded-bottom">
-								<h3 class="card-title" style="height: 7rem">{{ film.title }}</h3>
-								<p class="card-text">{{ film.category }}</p>
-								<a href="{{ path("film_show", { slug: film.slug }) }}" class="btn btn-secondary text-primary">Voir la fiche détaillée</a>
+		{% include 'components/_searchBar.html.twig' %}
+		<div class="indexFilm">
+			<div class="row">
+				{% for film in pagination %}
+					{% if  film in films %}
+						<div class="col-lg-3 col-md-6">
+							<div class="card my-3">
+								<img class="img" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }}">
+								<div class="card-body bg-primary text-secondary rounded-bottom">
+									<h3 class="card-title">{{ film.title }}</h3>
+									<p class="card-text">{{ film.category }}</p>
+									<a href="{{ path("film_show", { slug: film.slug }) }}" class="btn btn-secondary text-primary">Voir la fiche détaillée</a>
+								</div>
 							</div>
 						</div>
-					</div>
-				{% endif %}
-			{% endfor %}
-			<div class="d-flex justify-content-center">
-				{{ knp_pagination_render(pagination) }}
+					{% endif %}
+				{% endfor %}
+				<div class="d-flex justify-content-center">
+					{{ knp_pagination_render(pagination) }}
+				</div>
 			</div>
 		</div>
 	</div>
-
 {% endblock %}

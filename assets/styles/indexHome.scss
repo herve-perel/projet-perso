@@ -1,0 +1,18 @@
+.homepage {
+   
+
+    .img_homepage {
+        object-fit: cover;
+        background-attachment: fixed;
+        height: 90vh;
+    }
+
+    .card-img-top {
+        object-fit: contain;
+        height: 15rem;
+    }
+
+    .card-title {
+        height: 6rem;
+    }
+}
