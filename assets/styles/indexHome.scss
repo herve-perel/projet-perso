@@ -1,10 +1,17 @@
 .homepage {
-   
+
 
     .img_homepage {
+
         object-fit: cover;
         background-attachment: fixed;
         height: 90vh;
+
+        h1 {
+            position: absolute;
+            top: 25%;
+            left: 25%;
+        }
     }
 
     .card-img-top {
