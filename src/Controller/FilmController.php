@@ -30,13 +30,13 @@ class FilmController extends AbstractController
         } else {
             $films = $filmRepository->findAll();
         }
-
+        
         $pagination = $paginatorInterface->paginate(
             $filmRepository->paginationQuery(),
             $request->query->get('page', 1),
-            12
+            12,
         );
-
+        
         return $this->render('film/index.html.twig', [
             'pagination' => $pagination,
             'films' => $films,
