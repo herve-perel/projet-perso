@@ -23,15 +23,23 @@ class Film
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        max: 50)]
     private ?string $category = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?int $year = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $synopsis = null;
 
     #[ORM\Column(length: 255)]
