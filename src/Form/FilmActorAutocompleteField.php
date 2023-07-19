@@ -17,7 +17,7 @@ class FilmActorAutocompleteField extends AbstractType
         $resolver->setDefaults([
             'class' => Actor::class,
             'label' => 'Acteur',
-            'placeholder' => 'Choississez un acteur',
+            'placeholder' => 'Choississez un ou plusieurs acteur',
             'choice_label' => 'name',
             'multiple' => true,
             // 'by_reference' => false,
