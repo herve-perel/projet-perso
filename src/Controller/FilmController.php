@@ -19,6 +19,8 @@ class FilmController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(Request $request, FilmRepository $filmRepository, PaginatorInterface $paginatorInterface): Response
     {
+
+
         $form = $this->createForm(SearchFilmType::class);
         $form->handleRequest($request);
 
@@ -37,6 +39,7 @@ class FilmController extends AbstractController
 
         return $this->render('film/index.html.twig', [
             'pagination' => $pagination,
+            'films' => $films,
             'form' => $form
         ]);
     }
@@ -52,6 +55,7 @@ class FilmController extends AbstractController
             $slug = $slugger->slug($film->getTitle());
             $film->setSlug($slug);
             $filmRepository->save($film, true);
+            $this->addFlash('success', 'Le nouveau film a bien été créée.');
             return $this->redirectToRoute('film_index');
         }
 
@@ -79,6 +83,7 @@ class FilmController extends AbstractController
             $slug = $slugger->slug($film->getTitle());
             $film->setSlug($slug);
             $filmRepository->save($film, true);
+            $this->addFlash('success', 'Le film a bien été modifiée.');
 
             return $this->redirectToRoute('film_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -94,6 +99,7 @@ class FilmController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $film->getId(), $request->request->get('_token'))) {
             $filmRepository->remove($film, true);
+            $this->addFlash('success', 'Le film a bien été supprimée.');
         }
 
         return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
