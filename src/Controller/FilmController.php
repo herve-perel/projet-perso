@@ -69,7 +69,8 @@ class FilmController extends AbstractController
     public function show(Film $film): Response
     {
         return $this->render('film/show.html.twig', [
-            'film' => $film
+            'film' => $film,
+            
         ]);
     }
 
