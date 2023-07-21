@@ -4,11 +4,11 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center">Ajouter un acteur</h1>
+	<h1 class="display-1 text-center my-5">Ajouter un acteur</h1>
 	<div class="container">
 		<div class=" bg-secondary rounded p-3">
 			{{ include('actor/_form.html.twig') }}
 		</div>
 	</div>
-	<a class="btn btn-outline btn- m-5" href="{{ path('actor_index') }}">Retour a la liste des acteurs</a>
+	<a class="btn btn-outline btn-secondary m-5" href="{{ path('actor_index') }}">Retour a la liste des acteurs</a>
 {% endblock %}

@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('film_delete', {'id': film.id}) }}">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ film.id) }}">
-    <button class="btn btn-primary m-3">Supprimer film</button>
+    <button class="btn btn-danger m-3">{% include('icon/trash3.svg')%}Supprimer film</button>
 </form>

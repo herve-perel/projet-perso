@@ -4,24 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-4">Liste des acteurs
+	<h1 class="display-1 text-center my-5">Liste des acteurs
 	</h1>
-	<ul>
-	{% if app.user %}
-		<div class="container">
-			<a class="btn btn-primary" href="{{ path('actor_new') }}">Ajouter un acteur</a>
-		</div>
+	<div class="container">
+		{% if app.user %}
+			<a class="btn btn-primary my-5" href="{{ path('actor_new') }}">Ajouter un acteur</a>
 		{% endif %}
-		{% for actor in actors %}
-			<div class="container">
-				<div class="list-group text-center my-1">
-					<a href="{{ path("actor_show", { slug: actor.slug }) }}" class="list-group-item list-group-item-action active">
-						{{ actor.name }}
-					</a>
+	</div>
+	<div class="container">
+		<div class="row">
+			{% for actor in actors %}
+				<div class="col-lg-4 col-md-6">
+					<div class="card ">
+						<div class="card-body bg-primary rounded p-0">
+							<div class="list-group text-center">
+								<a href="{{ path("actor_show", { slug: actor.slug }) }}" class="list-group-item list-group-item-action active">
+									{{ actor.name }}
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		{% else %}
-			Aucun acteur trouvée.
-		{% endfor %}
-	</ul>
+			{% else %}
+				Aucun acteur trouvée.
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
