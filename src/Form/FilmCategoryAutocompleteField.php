@@ -2,26 +2,24 @@
 
 namespace App\Form;
 
-use App\Entity\Actor;
-use App\Repository\ActorRepository;
+use App\Entity\Category;
+use App\Repository\CategoryRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\ParentEntityAutocompleteType;
 
 #[AsEntityAutocompleteField]
-class FilmActorAutocompleteField extends AbstractType
+class FilmCategoryAutocompleteField extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'class' => Actor::class,
-            'label' => 'Acteur',
-            'placeholder' => 'Choississez un ou plusieurs acteur',
+            'class' => Category::class,
+            'placeholder' => 'Choisir une categorie',
             'choice_label' => 'name',
-            'multiple' => true,
-            'query_builder' => function (ActorRepository $actorRepository) {
-                return $actorRepository->createQueryBuilder('actor');
+            'query_builder' => function (CategoryRepository $categoryRepository) {
+                return $categoryRepository->createQueryBuilder('category');
             },
         ]);
     }

@@ -7,8 +7,7 @@
 		{% include 'components/_searchBar.html.twig' %}
 		<div class="indexFilm my-5">
 			<div class="row">
-				{% for film in pagination %}
-					{% if  film in films %}
+				{% for film in films %}
 						<div class="col-lg-3 col-md-6">
 							<div class="card my-3">
 								<img class="img" src="{{ vich_uploader_asset(film) }}" alt="{{ film.title }}">
@@ -19,11 +18,10 @@
 								</div>
 							</div>
 						</div>
-					{% endif %}
 				{% endfor %}
-				<div class="d-flex justify-content-center">
+				{# <div class="d-flex justify-content-center">
 					{{ knp_pagination_render(pagination) }}
-				</div>
+				</div> #}
 			</div>
 		</div>
 	</div>

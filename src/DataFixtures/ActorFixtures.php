@@ -26,9 +26,14 @@ class ActorFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < self::ACTOR_NUMBERS; $i++) {
             $actor = new Actor();
             $actor->setName($faker->firstName());
+            $actor->setBio($faker->paragraph(5, true));
             $actor->addFilm($this->getReference('film_' . $faker->numberBetween(0, FilmFixtures::FILM_NUMBERS - 1)));
             $actor->setSlug(strtolower($this->slugger->slug($actor->getName())));
-
+            $actor->setPoster('gaspar.jpeg');
+            copy(
+                __DIR__ . '/actor/gaspar.jpeg',
+                'public/uploads/images/actors/gaspar.jpeg'
+            );
             
             $manager->persist($actor);
         }

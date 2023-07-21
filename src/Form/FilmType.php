@@ -18,9 +18,7 @@ class FilmType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre',
             ])
-            ->add('category', TextType::class, [
-                'label' => 'Categorie'
-            ])
+            ->add('category', FilmCategoryAutocompleteField::class)
             ->add('year', NumberType::class, [
                 'label' => 'Année de sortie'
             ])
@@ -35,7 +33,6 @@ class FilmType extends AbstractType
             ->add('director', FilmDirectorAutocompleteField::class)
             ->add('posterFile', VichFileType::class, [
                 'required'      => false,
-                'allow_delete'  => true,
                 'download_uri' => true,
                 'label' => 'Ajouter une image'
             ]);

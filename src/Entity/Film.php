@@ -28,12 +28,6 @@ class Film
         max: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 50)]
-    #[Assert\NotBlank]
-    #[Assert\Length(
-        max: 50)]
-    private ?string $category = null;
-
     #[ORM\Column]
     #[Assert\NotBlank]
     private ?int $year = null;
@@ -70,6 +64,9 @@ class Film
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\ManyToOne(inversedBy: 'films', targetEntity: Category::class)]
+    private ?Category $category = null;
+
     public function __construct()
     {
         $this->actors = new ArrayCollection();
@@ -90,18 +87,6 @@ class Film
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }
@@ -224,6 +209,18 @@ class Film
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
 
         return $this;
     }

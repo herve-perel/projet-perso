@@ -1,4 +1,13 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-<button class="btn btn-primary">{{ button_label|default('Rechercher') }}</button>
-{{ form_end(form) }}
+<div class="bg-primary rounded d-flex justify-content-center">
+	{{ form_start(form, {'attr': {'class': 'form-class bg-none'}}) }}
+	<div class="row">
+		<div class="col-lg-4 col-md-12 my-3">
+			{{ form_widget(form.category, {'attr': {'onchange':'this.form.submit()', 'class': 'w-auto mx-2'}}) }}
+		</div>
+		<div class="search-bar col-lg-4 col-md-12 my-3 d-flex justify-content-between">
+			{{ form_widget(form.search, {'attr': {'class': 'w-auto mx-2', 'placeholder': 'Rechercher'}}) }}
+			<button class="btn btn-secondary" type="submit">Rechercher</button>
+		</div>
+		{{ form_end(form) }}
+	</div>
+</div>

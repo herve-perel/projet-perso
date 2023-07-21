@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Actor;
-use App\Entity\Film;
 use App\Form\ActorType;
 use App\Repository\ActorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -61,7 +60,7 @@ class ActorController extends AbstractController
     {
         $form = $this->createForm(ActorType::class, $actor);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $slug = $slugger->slug($actor->getName());
             $actor->setSlug($slug);
