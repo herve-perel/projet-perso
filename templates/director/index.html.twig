@@ -4,24 +4,30 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center my-4">Liste des réalisateurs
+	<h1 class="display-1 text-center my-5">Liste des réalisateurs
 	</h1>
-	<ul>
-		<div class="container">
+	<div class="container">
 		{% if app.user %}
-			<a class="btn btn-primary" href="{{ path('director_new') }}">Ajouter un réalisateur</a>
-			{% endif %}
-		</div>
-		{% for director in directors %}
-			<div class="container">
-				<div class="list-group text-center my-1">
-					<a href="{{ path("director_show", { slug: director.slug }) }}" class="list-group-item list-group-item-action active">
-						{{ director.name }}
-					</a>
+			<a class="btn btn-primary my-5" href="{{ path('director_new') }}">Ajouter un réalisateur</a>
+		{% endif %}
+	</div>
+	<div class="container">
+		<div class="row">
+			{% for director in directors %}
+				<div class="col-lg-4 col-md-6">
+					<div class="card">
+						<div class="card-body bg-primary rounded p-0">
+							<div class="list-group text-center">
+								<a href="{{ path("director_show", { slug: director.slug }) }}" class="list-group-item list-group-item-action active">
+									{{ director.name }}
+								</a>
+							</div>
+						</div>
+					</div>
 				</div>
-			</div>
-		{% else %}
-			Aucun réalisateur trouvée.
-		{% endfor %}
-	</ul>
+			{% else %}
+				Aucun réalisateur trouvée.
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}

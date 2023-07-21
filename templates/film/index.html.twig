@@ -2,10 +2,10 @@
 
 
 {% block body %}
-	<h1 class="display-1 text-center my-2">Liste des DVD</h1>
+	<h1 class="text-center display-1 my-5">Liste des DVD</h1>
 	<div class="container">
 		{% include 'components/_searchBar.html.twig' %}
-		<div class="indexFilm">
+		<div class="indexFilm my-5">
 			<div class="row">
 				{% for film in pagination %}
 					{% if  film in films %}

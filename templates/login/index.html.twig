@@ -10,8 +10,8 @@
 			{% endif %}
 			<h1 class="text-primary">Connexion</h1>
 			<p class="">Vous n'avez pas encore de compte ?</p>
-			<a class="text-primary" href="{{ path('register') }}">S'inscrire</a>
-			<form class="mt-4" action="{{ path('login') }}" method="post">
+			<a class="text-primary" href="{{ path('app_register') }}">S'inscrire</a>
+			<form class="mt-4" action="{{ path('app_login') }}" method="post">
 				<div class="mb-3 text-start">
 					<label class="form-label" for="username">Adresse email :</label>
 					<input class="form-control" type="email" id="username" name="_username" value="{{ last_username }}">
