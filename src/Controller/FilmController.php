@@ -25,20 +25,21 @@ class FilmController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $films = $filmRepository->findFilm($data['search']);
+            $search = $form->getData()['search'];
+            $category = $form->getData()['category'];
+            $films = $filmRepository->findFilm($search, $category);
         } else {
             $films = $filmRepository->findAll();
         }
         
-        $pagination = $paginatorInterface->paginate(
-            $filmRepository->paginationQuery(),
-            $request->query->get('page', 1),
-            12,
-        );
+        // $pagination = $paginatorInterface->paginate(
+        //     $filmRepository->paginationQuery(),
+        //     $request->query->get('page', 1),
+        //     12,
+        // );
         
         return $this->render('film/index.html.twig', [
-            'pagination' => $pagination,
+            // 'pagination' => $pagination,
             'films' => $films,
             'form' => $form
         ]);

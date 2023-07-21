@@ -7,8 +7,9 @@ use App\Entity\Film;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
-class FilmFixtures extends Fixture
+class FilmFixtures extends Fixture implements DependentFixtureInterface
 {
     protected $slugger;
 
@@ -28,13 +29,24 @@ class FilmFixtures extends Fixture
             $film->setTitle($faker->word());
             $film->setYear($faker->year());
             $film->setSynopsis($faker->paragraphs(3, true));
-            $film->setCategory($faker->word());
-            $film->setPoster($faker->numberBetween(1, 10));
+            $film->setCategory($this->getReference('category_' . $faker->numberBetween(0, 6)));
+            $film->setPoster('machete.jpg');
+            copy(
+                __DIR__ . '/poster/machete.jpg',
+                'public/uploads/images/posters/machete.jpg'
+            );
             $film->setSlug(strtolower($this->slugger->slug($film->getTitle())));
             $this->addReference('film_' . $i, $film);
 
             $manager->persist($film);
         }
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return [
+            CategoryFixtures::class,
+        ];
     }
 }

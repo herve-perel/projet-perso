@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Actor;
+use App\Entity\Category;
 use App\Entity\Director;
 use App\Entity\Film;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -41,27 +42,28 @@ class FilmRepository extends ServiceEntityRepository
         }
     }
 
-    public function findFilm(?string $search): array
+    public function findFilm(?string $search, ?Category $category): array
     {
-        $queryBuilder = $this->createQueryBuilder('f')
-            ->leftJoin('f.actors', 'a')
-            ->leftJoin('f.director', 'd')
-            ->where('f.title LIKE :search')
-            ->orWhere('a.name LIKE :actor')
-            ->orWhere('d.name LIKE :director')
-            ->setParameter('search', '%' . $search . '%')
-            ->setParameter('actor', '%' . $search . '%')
-            ->setParameter('director', '%' . $search . '%')
-            ->orderBy('f.title', 'ASC')
-            ->getQuery();
+        $queryBuilder = $this->createQueryBuilder('f');
+            if ($search) {
+                $queryBuilder->where('f.title LIKE :title');
+                $queryBuilder->setParameter('title', '%' . $search . '%');
+            }
 
-        return $queryBuilder->getResult();
+            if ($category) {
+                $queryBuilder->where('f.category = :category');
+                $queryBuilder->setParameter('category', $category);
+            }
+
+            $queryBuilder->orderBy('f.title', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
-    public function paginationQuery()
-    {
-        return $this->createQueryBuilder('f')
-            ->orderBy('f.title', 'ASC')
-            ->getQuery();
-    }
+    // public function paginationQuery()
+    // {
+    //     return $this->createQueryBuilder('f')
+    //         ->orderBy('f.title', 'ASC')
+    //         ->getQuery();
+    // }
 }
